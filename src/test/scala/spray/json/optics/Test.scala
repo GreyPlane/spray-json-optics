@@ -1,10 +1,6 @@
 package spray.json.optics
 
 import org.scalatest.flatspec.AnyFlatSpec
-import monocle.law.discipline
-import all._
-import monocle.Optional
-import syntax._
 import spray.json._
 
 import java.math.BigInteger
@@ -61,7 +57,8 @@ class Test extends AnyFlatSpec {
 
     val really = jsBigInt.getOrModify(jsn).fold(identity, jsBigInt.reverseGet)
 
-    println(jsBigInt.getOption(jsn))
+
+    println(jsn.convertTo[BigInt])
 
     val unscaled = big.bigDecimal.unscaledValue()
     val scale = big.bigDecimal.scale().toLong
@@ -71,5 +68,6 @@ class Test extends AnyFlatSpec {
     val r = toBigIntegerWithMaxDigits(sig, exp, MaxBigIntegerDigits).map(BigInt(_))
 
     assert(true)
+
   }
 }

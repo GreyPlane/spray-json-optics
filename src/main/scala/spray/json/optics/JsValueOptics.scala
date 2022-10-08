@@ -10,10 +10,6 @@ import scala.util.Try
 
 trait JsValueOptics {
 
-  import JsNumberOptics._
-  import JsObjectOptics._
-  import spray.json.DefaultJsonProtocol._
-
   final lazy val jsNull = Prism[JsValue, Unit] {
     case JsNull => Some()
     case _      => None

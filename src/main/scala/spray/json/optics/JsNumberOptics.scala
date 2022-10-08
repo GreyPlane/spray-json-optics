@@ -6,7 +6,6 @@ import spray.json.JsNumber
 import scala.util.Try
 
 trait JsNumberOptics {
-  import spray.json.DefaultJsonProtocol._
   final lazy val jsNumberBigInt: Prism[JsNumber, BigInt] =
     Prism[JsNumber, BigInt](jn => Try(BigIntJsonFormat.read(jn)).toOption)(JsNumber.apply)
 

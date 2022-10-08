@@ -8,7 +8,6 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.Checkers
 import org.typelevel.discipline.scalatest.FunSuiteDiscipline
 import spray.json._
-import spray.json.optics.all._
 import spray.json.testing.ArbitraryInstances._
 import spray.json.testing.CogenInstances._
 import spray.json.testing.EqInstances._
