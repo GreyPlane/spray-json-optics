@@ -5,6 +5,7 @@ import cats.implicits._
 import monocle._
 import monocle.function.{ At, Each, Index, Plated }
 import spray.json._
+import utils._
 
 import scala.util.Try
 
@@ -50,8 +51,7 @@ trait JsValueOptics {
   implicit final lazy val jsPlated: Plated[JsValue] = new Plated[JsValue] {
     def plate: Traversal[JsValue, JsValue] = new Traversal[JsValue, JsValue] {
       def modifyA[F[_]](f: JsValue => F[JsValue])(s: JsValue)(implicit F: Applicative[F]): F[JsValue] = s match {
-        case jso: JsObject =>
-          jso.fields.toList.traverse { case (k, v) => f(v).map(fv => k -> fv) }.map(fs => jso.copy(fields = fs.toMap))
+        case jso: JsObject      => jso.traverseMapFields(f.compose(_._2)).map(identity)
         case JsArray(elements)  => elements.traverse(f).map(JsArray.apply(_))
         case JsString(value)    => value.pure[F].map(JsString.apply)
         case JsNumber(value)    => value.pure[F].map(JsNumber.apply)
