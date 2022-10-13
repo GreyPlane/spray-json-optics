@@ -12,7 +12,7 @@ lazy val root = (project in file(".")).settings(
       "dev.optics" %% "monocle-core" % monocleVersion,
       "io.spray" %% "spray-json" % sprayJsonVersion,
       "dev.optics" %% "monocle-law" % monocleVersion,
-      "org.scalatest" %% "scalatest" % "3.2.12" % Test,
-      "org.scalacheck" %% "scalacheck" % "1.16.0" % Test,
+      "org.scalatest" %% "scalatest" % "3.2.14" % Test,
+      "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
       "org.typelevel" %% "discipline-core" % "1.5.1" % Test,
       "org.typelevel" %% "discipline-scalatest" % "2.2.0" % Test))
