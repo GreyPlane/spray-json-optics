@@ -13,7 +13,7 @@ private object UnsafeOptics {
         case Failure(_)     => None
       })(format.write)
 
-  final val keyMissingNone: Option[None.type] = Some(None)
+  private final val keyMissingNone: Option[None.type] = Some(None)
 
   def optionParse[A](implicit format: JsonFormat[A]): Prism[Option[JsValue], Option[A]] =
     Prism[Option[JsValue], Option[A]] {
