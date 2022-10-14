@@ -12,7 +12,7 @@ import scala.util.Try
 trait JsValueOptics {
 
   final lazy val jsNull = Prism[JsValue, Unit] {
-    case JsNull => Some()
+    case JsNull => Some(())
     case _      => None
   }(_ => JsNull)
   final lazy val jsBoolean = Prism[JsValue, Boolean](jsv => Try(BooleanJsonFormat.read(jsv)).toOption)(JsBoolean.apply)
