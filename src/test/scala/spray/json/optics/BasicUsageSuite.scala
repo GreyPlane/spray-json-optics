@@ -23,14 +23,14 @@ class BasicUsageSuite extends AnyFlatSpec with should.Matchers {
 
   }
 
-  it should "select fields that doesn't exist as Some(None)" in {
+  it should "select can distinguish field either doesn't exist as Some(None) or cannot convert to concrete type as None" in {
     val json = """{
       | "a": 1,
       | "b": 2
       |}""".stripMargin.parseJson
 
     val a = select[String]("a") // None
-    val b = select[Int]("b")
+    val b = select[Int]("b") // Some(Some(2))
     val c = select[Int]("c") // Some(None)
 
     a.getOption(json) shouldBe None
