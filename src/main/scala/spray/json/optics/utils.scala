@@ -1,7 +1,7 @@
 package spray.json.optics
 
 import cats.Applicative
-import spray.json.{ JsObject, JsValue }
+import spray.json.{JsObject, JsValue}
 import cats.implicits._
 
 private[optics] object utils {

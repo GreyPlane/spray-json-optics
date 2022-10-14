@@ -1,8 +1,8 @@
 package spray.json.optics
 
 import cats.implicits._
-import monocle.law.discipline.function.{ AtTests, EachTests, FilterIndexTests, IndexTests }
-import monocle.law.discipline.{ PrismTests, TraversalTests }
+import monocle.law.discipline.function.{AtTests, EachTests, FilterIndexTests, IndexTests}
+import monocle.law.discipline.{PrismTests, TraversalTests}
 import org.scalacheck.Arbitrary._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.Checkers

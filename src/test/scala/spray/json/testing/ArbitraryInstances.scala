@@ -1,7 +1,7 @@
 package spray.json.testing
 
-import org.scalacheck.{ Arbitrary, Gen }
-import spray.json.{ JsArray, JsBoolean, JsNull, JsNumber, JsObject, JsString, JsValue }
+import org.scalacheck.{Arbitrary, Gen}
+import spray.json.{JsArray, JsBoolean, JsNull, JsNumber, JsObject, JsString, JsValue}
 
 object ArbitraryInstances {
 
@@ -26,7 +26,9 @@ object ArbitraryInstances {
       Arbitrary.arbitrary[BigInt].map[JsNumber](JsNumber.apply),
       Arbitrary.arbitrary[Long].map[JsNumber](JsNumber.apply),
       Arbitrary.arbitrary[Double].map[JsNumber](JsNumber.apply(_)),
-      Arbitrary.arbitrary[Float].map[JsNumber](JsNumber.apply(_))))
+      Arbitrary.arbitrary[Float].map[JsNumber](JsNumber.apply(_))
+    )
+  )
 
   val genJsNull: Gen[JsValue] = Gen.const(JsNull)
   val genJsBoolean: Gen[JsValue] = Arbitrary.arbitrary[Boolean].map(JsBoolean.apply)
@@ -45,8 +47,8 @@ object ArbitraryInstances {
       })
   private[this] def genJsValueAtDepth(depth: Int): Gen[JsValue] = {
     val genJsValues = List(genJsNumber, genJsString) ++ (
-        if (depth < maxJsonDepth) List(genJsArray(depth), genJsObject(depth)) else Nil
-      )
+      if (depth < maxJsonDepth) List(genJsArray(depth), genJsObject(depth)) else Nil
+    )
     Gen.oneOf(genJsBoolean, genJsNull, genJsValues: _*)
   }
 

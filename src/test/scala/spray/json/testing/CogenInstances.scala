@@ -1,7 +1,7 @@
 package spray.json.testing
 
 import org.scalacheck.Cogen
-import spray.json.{ JsNumber, JsObject, JsValue }
+import spray.json.{JsNumber, JsObject, JsValue}
 
 object CogenInstances {
   implicit val jsValueCogen: Cogen[JsValue] = Cogen(_.hashCode())

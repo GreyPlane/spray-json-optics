@@ -10,11 +10,11 @@ class BasicUsageSuite extends AnyFlatSpec with should.Matchers {
 
   it should "parse nested fields to wanted type" in {
     val json = """{ 
-      |"conditions": [
-      | { "property": "a" },
-      | { "property": "b" }
-      |]
-      | }""".stripMargin.parseJson
+                 |"conditions": [
+                 | { "property": "a" },
+                 | { "property": "b" }
+                 |]
+                 | }""".stripMargin.parseJson
 
     val conditions = jsObject.index("conditions")
     val properties = conditions.andThen(jsArray).each.andThen(jsObject).index("property").andThen(parse[String])
@@ -25,9 +25,9 @@ class BasicUsageSuite extends AnyFlatSpec with should.Matchers {
 
   it should "select can distinguish field either doesn't exist as Some(None) or cannot convert to concrete type as None" in {
     val json = """{
-      | "a": 1,
-      | "b": 2
-      |}""".stripMargin.parseJson
+                 | "a": 1,
+                 | "b": 2
+                 |}""".stripMargin.parseJson
 
     val a = select[String]("a") // None
     val b = select[Int]("b") // Some(Some(2))

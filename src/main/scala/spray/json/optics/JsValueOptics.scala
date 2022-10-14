@@ -3,7 +3,7 @@ package spray.json.optics
 import cats.Applicative
 import cats.implicits._
 import monocle._
-import monocle.function.{ At, Each, Plated }
+import monocle.function.{At, Each, Plated}
 import spray.json._
 import spray.json.optics.utils._
 
@@ -48,9 +48,9 @@ trait JsValueOptics {
 
   final def parse[T](implicit format: JsonFormat[T]): Prism[JsValue, T] = UnsafeOptics.parse[T]
 
-  final def select[T](field: String)(
-      implicit format: JsonFormat[T],
-      A: At[JsObject, String, Option[JsValue]]): Optional[JsValue, Option[T]] =
+  final def select[T](
+    field: String
+  )(implicit format: JsonFormat[T], A: At[JsObject, String, Option[JsValue]]): Optional[JsValue, Option[T]] =
     jsObject.andThen(A.at(field).andThen(UnsafeOptics.optionParse[T]))
 
   implicit final lazy val jsValueEach: Each[JsValue, JsValue] = Each(jsDescendants)
