@@ -3,7 +3,7 @@ package spray.json.optics
 import cats.Applicative
 import cats.implicits._
 import monocle._
-import monocle.function.{At, Each, Plated}
+import monocle.function.{At, Each, Index, Plated}
 import spray.json._
 import spray.json.optics.utils._
 
@@ -45,6 +45,9 @@ trait JsValueOptics {
       case _               => F.pure(s)
     }
   }
+
+  final def field(key: String): Optional[JsValue, JsValue] = jsObject.andThen(Index.index(key))
+  final def atField(key: String): Optional[JsValue, Option[JsValue]] = jsObject.andThen(At.at(key))
 
   final def parse[T](implicit format: JsonFormat[T]): Prism[JsValue, T] = UnsafeOptics.parse[T]
 
