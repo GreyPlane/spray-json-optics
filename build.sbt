@@ -1,8 +1,8 @@
-ThisBuild / version := "0.1.1"
+ThisBuild / version := "0.1.2"
 
 ThisBuild / scalaVersion := "2.13.8"
 
-val monocleVersion = "3.1.0"
+val monocleVersion = "3.2.0"
 val sprayJsonVersion = "1.3.6"
 val disciplineVersion = "1.5.1"
 
