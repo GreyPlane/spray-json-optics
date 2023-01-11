@@ -3,7 +3,7 @@ package spray.json.optics
 import cats.Applicative
 import cats.implicits._
 import monocle._
-import monocle.function.{At, Each, Index, Plated}
+import monocle.function.{At, Each, Plated}
 import spray.json._
 import spray.json.optics.utils._
 
@@ -46,9 +46,8 @@ trait JsValueOptics {
     }
   }
 
-  final def field(key: String): Optional[JsValue, JsValue] = jsObject.andThen(Index.index(key))
-  final def atField(key: String): Optional[JsValue, Option[JsValue]] = jsObject.andThen(At.at(key))
-
+  final def field(key: String): Optional[JsValue, JsValue] = jsObject.index(key)
+  final def atField(key: String): Optional[JsValue, Option[JsValue]] = jsObject.at(key)
   final def parse[T](implicit format: JsonFormat[T]): Prism[JsValue, T] = UnsafeOptics.parse[T]
 
   final def select[T](
@@ -61,12 +60,9 @@ trait JsValueOptics {
   implicit final lazy val jsPlated: Plated[JsValue] = new Plated[JsValue] {
     def plate: Traversal[JsValue, JsValue] = new Traversal[JsValue, JsValue] {
       def modifyA[F[_]](f: JsValue => F[JsValue])(s: JsValue)(implicit F: Applicative[F]): F[JsValue] = s match {
-        case jso: JsObject      => jso.traverseMapFields(f.compose(_._2)).map(identity)
-        case JsArray(elements)  => elements.traverse(f).map(JsArray.apply(_))
-        case JsString(value)    => value.pure[F].map(JsString.apply)
-        case JsNumber(value)    => value.pure[F].map(JsNumber.apply)
-        case boolean: JsBoolean => boolean.pure[F].map(identity)
-        case JsNull             => F.pure(s)
+        case jso: JsObject     => jso.traverseMapFields(f.compose(_._2)).map(identity)
+        case JsArray(elements) => elements.traverse(f).map(JsArray.apply(_))
+        case _                 => s.pure[F]
       }
     }
   }
