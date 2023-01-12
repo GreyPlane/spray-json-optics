@@ -15,7 +15,7 @@ val publishSettings = List(
 
 inThisBuild(publishSettings)
 
-lazy val sparyJsonOptics = (project in file(".")).settings(
+lazy val sprayJsonOptics = (project in file(".")).settings(
   moduleName := "spray-json-optics",
   name := "spray-json-optics",
   libraryDependencies ++= Seq(
